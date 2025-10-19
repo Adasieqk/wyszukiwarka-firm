@@ -25,3 +25,10 @@
 -   otwórz przeglądarkę internetową i wpisz `http://localhost:3000`
 -   wypełnij pola formularza i kliknij `Szukaj`
 -   po chwili plik z danymi pobierze się do folderu PLIKI w katalogu projektu
+
+## Ponowne uruchomienie
+
+-   otwórz cmd
+-   wpisz `cd "sciezka\do\pliku"` i wciśnij `Enter`
+-   wpisz `node server.js` => komunikat `Serwer działa na porcie 3000` znaczy, że wszystko działa
+-   otwórz przeglądarkę internetową i wpisz `http://localhost:3000`
