@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Wyszukiwarka firm PanoramaFirm</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="center-container">
+            <h2>Wyszukiwarka firm PanoramaFirm</h2>
+            <input id="job" placeholder="Zawód (np. fryzjer)" />
+            <input id="location" placeholder="Miejscowość lub województwo" />
+            <button onclick="search()">Szukaj</button>
+            <div id="message"></div>
+        </div>
+
+        <script>
+            async function search() {
+                const job = document.getElementById("job").value.trim();
+                const location = document
+                    .getElementById("location")
+                    .value.trim();
+                const messageDiv = document.getElementById("message");
+                messageDiv.style.color = "green";
+                messageDiv.textContent = "";
+
+                if (!job || !location) {
+                    alert("Podaj zawód i miejscowość!");
+                    return;
+                }
+
+                messageDiv.textContent =
+                    "Trwa wyszukiwanie i zapisywanie wyników, proszę czekać...";
+
+                try {
+                    const response = await fetch(
+                        `/api/search?job=${encodeURIComponent(
+                            job
+                        )}&location=${encodeURIComponent(location)}`
+                    );
+                    if (!response.ok) throw new Error("Błąd serwera");
+                    const data = await response.json();
+
+                    if (data.error) {
+                        messageDiv.style.color = "red";
+                        messageDiv.textContent = `Błąd: ${data.error}`;
+                        return;
+                    }
+
+                    if (data.filePath) {
+                        messageDiv.textContent = `Wyniki zostały zapisane w pliku: ${data.filePath}`;
+                    } else {
+                        messageDiv.textContent = `Wyniki zostały pobrane i mogą zostać zapisane. Liczba firm: ${data.length}`;
+                    }
+                } catch (err) {
+                    messageDiv.style.color = "red";
+                    messageDiv.textContent = `Błąd: ${err.message}`;
+                }
+            }
+        </script>
+    </body>
+</html>

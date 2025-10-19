@@ -1,0 +1,73 @@
+body {
+    min-height: 100vh;
+    background: #dde1e7;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Lato", Arial, sans-serif;
+}
+
+.center-container {
+    background: #f5f6fa;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(20, 20, 44, 0.13);
+    padding: 38px 32px 28px 32px;
+    min-width: 320px;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.center-container h2 {
+    margin-bottom: 22px;
+    color: #26324b;
+    font-weight: 800;
+    font-size: 1.65rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+}
+
+.center-container input {
+    width: 85%;
+    padding: 7px 12px;
+    margin-bottom: 13px;
+    border-radius: 7px;
+    border: 1px solid #bec4d0;
+    background: #f9fafb;
+    color: #303950;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: "Lato", Arial, sans-serif;
+}
+.center-container input:focus {
+    border-color: #888aa8;
+}
+
+.center-container button {
+    width: 100px;
+    padding: 8px 0;
+    background: #58616b;
+    color: #f5f5fc;
+    border: none;
+    border-radius: 7px;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: background 0.18s;
+    font-family: "Lato", Arial, sans-serif;
+}
+.center-container button:hover {
+    background: #353a4e;
+}
+
+#message {
+    margin-top: 14px;
+    font-weight: 500;
+    word-break: break-all;
+    text-align: center;
+    font-family: "Lato", Arial, sans-serif;
+}
