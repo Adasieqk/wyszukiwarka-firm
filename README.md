@@ -13,7 +13,7 @@
 
 ### Setup projektu
 
--   pobierz [to](https://github.com/Adasieqk/wyszukiwarka-firm/) repozytorium (kliknij przycisk `Code` a następnie `Download ZIP`)
+-   pobierz to repozytorium (kliknij przycisk `Code` a następnie `Download ZIP`)
 -   wypakuj folder
 -   otwórz cmd
 -   wpisz `cd "sciezka\do\folderu"` i wciśnij `Enter` (ścieżkę znajdziesz klikając prawym przyciskiem myszy na folder, a następnie `Kopiuj jako ścieżkę`)
