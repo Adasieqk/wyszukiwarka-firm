@@ -72,10 +72,11 @@ async function getFirmDataFromPage(url) {
             const phone = $(el).find("a.icon-telephone.addax.addax-cs_hl_phonenumber_click").attr("title") || "";
             const email = $(el).find("a.ajax-modal-link.icon-envelope.cursor-pointer.addax.addax-cs_hl_email_submit_click").attr("data-company-email") || "";
             const rawAddress = $(el).find("div.address").text().trim().replace(/\s\s+/g, " ") || "";
+            const website = $(el).find("a.icon-website").attr("href") || "";
 
             const { code, addr } = splitAddress(rawAddress);
 
-            firms.push({ name, phone, email, address: addr, postalCode: code });
+            firms.push({ name, phone, email, address: addr, postalCode: code, website });
         });
 
         return firms;
@@ -118,7 +119,8 @@ app.get("/api/search", async (req, res) => {
             { header: "Adres", key: "address", width: 60 },
             { header: "Kod pocztowy", key: "postalCode", width: 15 },
             { header: "Email", key: "email", width: 40 },
-            { header: "Telefon", key: "phone", width: 20 }
+            { header: "Telefon", key: "phone", width: 20 },
+            { header: "Strona WWW", key: "website", width: 50 }
         ];
 
         allFirms.forEach((firm) => {
@@ -127,7 +129,8 @@ app.get("/api/search", async (req, res) => {
                 address: firm.address,
                 postalCode: firm.postalCode,
                 email: firm.email,
-                phone: firm.phone
+                phone: firm.phone,
+                website: firm.website
             });
         });
 
