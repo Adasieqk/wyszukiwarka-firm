@@ -111,41 +111,17 @@ app.get("/api/search", async (req, res) => {
             return res.json({ filePath: null, message: "Brak danych do zapisania" });
         }
 
-        const workbook = new ExcelJS.Workbook();
-        const worksheet = workbook.addWorksheet("Firmy");
+        const csvContent = [
+            "Nazwa Firmy;Adres;Kod pocztowy;Email;Telefon;Strona WWW",
+            ...allFirms.map(firm =>
+                `"${firm.name.replace(/"/g, '""')}";"${firm.address.replace(/"/g, '""')}";"${firm.postalCode}";"${firm.email.replace(/"/g, '""')}";"${firm.phone.replace(/"/g, '""')}";"${firm.website.replace(/"/g, '""')}"`
+            )
+        ].join('\n');
 
-        worksheet.columns = [
-            { header: "Nazwa Firmy", key: "name", width: 50 },
-            { header: "Adres", key: "address", width: 60 },
-            { header: "Kod pocztowy", key: "postalCode", width: 15 },
-            { header: "Email", key: "email", width: 40 },
-            { header: "Telefon", key: "phone", width: 20 },
-            { header: "Strona WWW", key: "website", width: 50 }
-        ];
+        res.setHeader('Content-Disposition', 'attachment; filename="firmy.csv"');
+        res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+        res.send(csvContent);
 
-        allFirms.forEach((firm) => {
-            worksheet.addRow({
-                name: firm.name,
-                address: firm.address,
-                postalCode: firm.postalCode,
-                email: firm.email,
-                phone: firm.phone,
-                website: firm.website
-            });
-        });
-
-        const folderPath = path.join(__dirname, "PLIKI");
-        if (!fs.existsSync(folderPath)) fs.mkdirSync(folderPath);
-
-        const timestamp = Date.now();
-        const filename = `${job.replace(/\s+/g, "_")}_${location.replace(/\s+/g, "_")}_${timestamp}.xlsx`;
-        const filepath = path.join(folderPath, filename);
-
-        await workbook.xlsx.writeFile(filepath);
-        console.log(`Zapisano dane do pliku: ${filepath}`);
-        console.log(`Liczba firm zapisanych do pliku: ${allFirms.length}`);
-
-        res.json({ filePath: filepath, message: "Dane zostały zapisane poprawnie." });
     } catch (err) {
         console.error("Błąd głównej funkcji:", err.message);
         res.status(500).json({ error: "Błąd podczas pobierania danych" });
